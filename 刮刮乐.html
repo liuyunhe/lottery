@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>刮刮乐</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./js/rem.js"></script>
+    <script type="text/javascript" src="./js/jquery.eraser.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="lucky_bar" style="background-color: #fff9b1;text-align: center">
+            <img class="pic_button" src="./images/myprize_button2.png" alt="" style="width: 12%">
+            <div class="content">
+                <div class="ggl_box">
+                    <div class="ggl_result">
+                        <div><p class="ggl_tips">很遗憾，您未中奖</p></div>
+                        <button class="ggl_btn">再试一次</button>
+                    </div>
+
+                    <!--中奖界面-->
+                    <div class="ggl_result" style="display: none;">
+                        <div>
+                            <p class="ggl_tips" style="margin: 0.05rem;font-size: 0.08rem;">恭喜您获得</p>
+                            <p class="ggl_tips" style="margin: 0.05rem;font-size: 0.1rem; color: #e8373d">10元代金券10元代金券</p>
+                        </div>
+                        <button class="ggl_btn">查看奖品</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content">
+                <img class="redux" id="redux" src="./images/mask-img3.png" alt="">
+                <!--活动未开始-->
+                <img class="redux" src="./images/mask-img1.png" alt="" style="display: none">
+                <!--活动已结束-->
+                <img class="redux" src="./images/mask-img2.png" alt="" style="display: none">
+            </div>
+            <div class="ggl_chance">您还有<span style="color: #fff;font-weight: bold;">99</span>次机会哦</div>
+            <img class="pic_size" src="./images/lottery_ggl_banner.png" alt="">
+        </div>
+        <div class="info_zone">
+            <div class="winners_list">
+
+                <div class="zjmd">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">中奖名单</div>
+                    </div>
+
+                    <div style="margin-top: 0.1rem">
+                        <ul>
+                            <li>
+                                <div class="info_line" style="padding-top: 0.1rem;">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line" style="padding-bottom: 0.1rem;">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="info_line">
+                        <div class="lottery_tips bkc">查看全部中奖名单</div>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+                <div class="hdjp">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">活动奖品</div>
+                    </div>
+                    <div class="info_line" style="padding-bottom: 0.1rem">
+                       <ul>
+                           <li>
+                               <div class="prizebar">
+                                   <img class="prize_imginfo" src="./images/alert_prize_img.png" alt="">
+                                   <div class="prize_info_bar">
+                                       <p>奖品名称</p>
+                                       <p>数量:<span style="color: red">12</span>/<span>20</span></p>
+                                   </div>
+                               </div>
+                               <div class="prize_msg">这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好</div>
+                           </li>
+                           <li>
+                               <div class="prizebar">
+                                   <img class="prize_imginfo" src="./images/alert_prize_img.png" alt="">
+                                   <div class="prize_info_bar">
+                                       <p>奖品名称</p>
+                                       <p>数量:<span style="color: red">12</span>/<span>20</span></p>
+                                   </div>
+                               </div>
+                               <div class="prize_msg">这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好</div>
+                           </li>
+                           <li>
+                               <div class="prizebar">
+                                   <img class="prize_imginfo" src="./images/alert_prize_img.png" alt="">
+                                   <div class="prize_info_bar">
+                                       <p>奖品名称</p>
+                                       <p>数量:<span style="color: red">12</span>/<span>20</span></p>
+                                   </div>
+                               </div>
+                               <div class="prize_msg">这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好</div>
+                           </li>
+                       </ul>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+                <div class="hdsm">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">活动说明</div>
+                    </div>
+                    <div class="info_line">
+                        <h2>活动时间</h2>
+                        <p style="margin: 0.1rem;font-size: 0.08rem;">2017-05-05 00:00:00 ~ 2017-05-15 00:00:00</p>
+                        <h2 style="padding-top: 0">活动说明</h2>
+                        <p style="margin: 0.1rem;margin: 0.1rem;padding-bottom: 0.1rem;margin-bottom: 0;">这个活动很好很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错</p>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../"></script>
+    <script type="text/javascript" src="./jquery.eraser.js" ></script>
+    <script>
+        $(window).load(function  () { //这个适用手机端，等图片加载完再显示，因为有可能会出现第一次加载图片没有加载完就不会出现canvas
+            $('#redux').eraser({
+                size: 20,   //设置橡皮擦大小
+                completeRatio: .6, //设置擦除面积比例
+                completeFunction: showResetButton   //大于擦除面积比例触发函数
+            });
+            function showResetButton(){
+                alert("你以为能中奖？想多了")
+            }
+//            $(".main_box .mask,.main_box .show .close,.main_box .show .btn").click(function  () {
+//                $(".main_box .show,.main_box .mask").fadeOut(300)
+////            })
+        })
+    </script>
+</body>
+</html>

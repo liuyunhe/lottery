@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>砸金蛋</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./js/rem.js"></script>
+    <style>
+        p {
+            margin: 000;
+        }
+        .pic_size {
+            border-radius: 0;
+        }
+        .chance {
+            width: 100%;
+            font-size: 0.12rem;
+            background-color: transparent;
+            position: absolute;
+            color: #994f1e;
+            text-align: center;
+            bottom: 0;
+            font-weight: bold;
+        }
+        .layeggs {
+            background-color: #fff9b1;
+            padding: 0 5%;
+            padding-top: 10%;
+            overflow: hidden;
+        }
+        .zjd_egg {
+            width: 33%;
+            text-align: center;
+            float: left;
+            position: relative;
+        }
+        .zjd_intergrityegg {
+            width: 0.8rem;
+        }
+        .zjd_hammer {
+            width: 0.6rem;
+            position: absolute;
+            right: 0rem;
+            top:0.1rem;
+            -webkit-animation: zd_chuizi 1s cubic-bezier(0.34, -0.1, 0.32, 1.01) infinite alternate;
+            animation: zd_chuizi 1s cubic-bezier(0.34, -0.1, 0.32, 1.01) infinite alternate;
+            transform-origin: bottom left;
+            -webkit-transform-origin: top right;
+        }
+        @keyframes zd_chuizi
+        {
+            0%
+            {
+                transform: rotate(40deg);
+
+
+            }
+            /*50%
+            {
+                transform: rotate(0deg);
+
+            }*/
+            100%
+            {
+                transform: rotate(15deg);
+            }
+        }
+        @-webkit-keyframes zd_chuizi
+        {
+            0%
+            {
+                transform: rotate(40deg);
+
+            }
+            /*50%
+            {
+                transform: rotate(0deg);
+
+            }*/
+            100%
+            {
+                transform: rotate(15deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lucky_bar" style="font-size: 0;position: relative">
+            <div class="chance"><p>您还有<span style="color: #e8373d">3333</span>次机会哦</p></div>
+            <!--活动未开始-->
+            <div class="chance" style="display: none"><p style="color: red">活动未开始</p></div>
+            <!--活动已结束-->
+            <div class="chance" style="display: none"><p style="color: red">活动已结束</p></div>
+            <img class="pic_button" src="./images/myprize_button2.png" alt="" style="width: 12%">
+            <img class="pic_size" src="./images/zjd_banner.png" alt="">
+        </div>
+        <div class="layeggs">
+            <div class="zjd_egg active">
+                <img class="zjd_hammer" src="./images/zjd_hammer.png" alt="" style="display: none">
+                <img class="zjd_intergrityegg" src="./images/zjd_goldenegg.png">
+            </div>
+            <div class="zjd_egg active">
+                <img class="zjd_hammer" src="./images/zjd_hammer.png" alt="" style="display: none">
+                <img class="zjd_intergrityegg" src="./images/zjd_goldenegg.png">
+            </div>
+            <div class="zjd_egg active">
+                <img class="zjd_hammer" src="./images/zjd_hammer.png" alt="" style="display: none">
+                <img class="zjd_intergrityegg" src="./images/zjd_goldenegg.png">
+            </div>
+        </div>
+        <div class="info_zone">
+            <div class="winners_list">
+
+                <div class="zjmd">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">中奖名单</div>
+                    </div>
+
+                    <div style="margin-top: 0.1rem">
+                        <ul>
+                            <li>
+                                <div class="info_line" style="padding-top: 0.1rem;">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line" style="padding-bottom: 0.1rem;">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="info_line">
+                        <div class="lottery_tips bkc">查看全部中奖名单</div>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+                <div class="hdjp">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">活动奖品</div>
+                    </div>
+                    <div class="info_line" style="padding-bottom: 0.1rem">
+                       <ul>
+                           <li>
+                               <div class="prizebar">
+                                   <img class="prize_imginfo" src="./images/alert_prize_img.png" alt="">
+                                   <div class="prize_info_bar">
+                                       <p>奖品名称</p>
+                                       <p>数量:<span style="color: red">12</span>/<span>20</span></p>
+                                   </div>
+                               </div>
+                               <div class="prize_msg">这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好</div>
+                           </li>
+                           <li>
+                               <div class="prizebar">
+                                   <img class="prize_imginfo" src="./images/alert_prize_img.png" alt="">
+                                   <div class="prize_info_bar">
+                                       <p>奖品名称</p>
+                                       <p>数量:<span style="color: red">12</span>/<span>20</span></p>
+                                   </div>
+                               </div>
+                               <div class="prize_msg">这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好</div>
+                           </li>
+                           <li>
+                               <div class="prizebar">
+                                   <img class="prize_imginfo" src="./images/alert_prize_img.png" alt="">
+                                   <div class="prize_info_bar">
+                                       <p>奖品名称</p>
+                                       <p>数量:<span style="color: red">12</span>/<span>20</span></p>
+                                   </div>
+                               </div>
+                               <div class="prize_msg">这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好这个活动很好</div>
+                           </li>
+                       </ul>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+                <div class="hdsm">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">活动说明</div>
+                    </div>
+                    <div class="info_line">
+                        <h2>活动时间</h2>
+                        <p style="margin: 0.1rem;font-size: 0.08rem;">2017-05-05 00:00:00 ~ 2017-05-15 00:00:00</p>
+                        <h2 style="padding-top: 0">活动说明</h2>
+                        <p style="margin: 0.1rem;margin: 0.1rem;padding-bottom: 0.1rem;margin-bottom: 0;">这个活动很好很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错</p>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+            </div>
+        </div>
+        <!--中奖了-->
+        <div class="screen_mask" style="display: none">
+            <div class="alert_prompt alert_prompt_mid">
+                <div class="alert_prompt_box" style="height: 2.2rem">
+                    <img class="alert_close" src="./images/alert_close.png" alt="" style="top: -0.5rem;z-index: 1;">
+                    <img class="alert_prize_bar" src="./images/alert_prize_bar.png" alt="">
+                    <div>
+                        <p class="prize_img_bd">
+                            <img class="prize_img" src="./images/alert_prize_img.png" alt="">
+                        </p>
+                    </div>
+                    <div class="alert_message" style="padding-top: 0.01rem;">
+                        <p class="alert_words">恭喜您抽中<span>iPhone7</span></p>
+                    </div>
+                    <div class="btn_zone" style="text-align: center;margin-top: 0.1rem">
+                        <button class="alert_btn" style="width: 1.2rem">查看奖品</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+
+//            $(".active").on("click",function () {
+//                var $that = $(this);
+//                $(".active").off("click");
+//                $that.find("img.zjd_hammer").show();
+//                setTimeout(function () {
+//                    $that.find("img.zjd_hammer").hide();
+//                    $that.find("img.zjd_intergrityegg").attr("src","./images/zjd_eggsopen.png");
+//                },6000 )
+//            })
+            var times = 0;             //times抽奖次数计数；
+            var zjd = function () {
+                $(".active").off("click");
+                var $that = $(this);
+                $that.find("img.zjd_hammer").show();
+                times = setTimeout(function () {
+                    $that.find("img.zjd_hammer").hide();
+                    $that.find("img.zjd_intergrityegg").attr("src","./images/zjd_eggsopen.png");
+                },6000 )
+                setTimeout(function () {
+                    $that.off("click").removeClass("active");
+                    $(".active").on("click",zjd);
+                    $(".screen_mask").show();
+                },7000 )
+            }
+            $(".active").on("click",zjd);
+            $(".screen_mask").click(function () {
+                $(this).hide();
+            })
+        })
+    </script>
+</body>
+</html>

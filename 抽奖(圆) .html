@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>好运转转转</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./js/rem.js"></script>
+    <script type="text/javascript" src="./js/awardRotate.js"></script>
+    <style>
+        .lottery_zone {
+            background: url("./images/big_Turntable1.png") no-repeat;
+        }
+        .lottery_zone {width: 2.9rem;height: 2.9rem;background-size: 100% 100%;margin: 0 auto;position: static;
+            border-radius: 50% / 0 0 28% 28%;}
+    </style>
+    <script type="text/javascript">
+        var turnplate={
+            restaraunts:[],				//大转盘奖品名称
+            colors:[],					//大转盘奖品区块对应背景颜色
+            outsideRadius:192,			//大转盘外圆的半径
+            textRadius:155,				//大转盘奖品位置距离圆心的距离
+            insideRadius:68,			//大转盘内圆的半径
+            startAngle:0,				//开始角度
+
+            bRotate:false				//false:停止;ture:旋转
+        };
+
+        $(document).ready(function(){
+            //动态添加大转盘的奖品与奖品区域背景颜色
+            turnplate.restaraunts = ["50M免费流量包", "1000积分", "谢谢参与", "20闪币", "10M免费流量包", "20M免费流量包", "20积分", "30M免费流量包", "100M免费流量包", "2积分"];
+            turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF"];
+
+
+            var rotateTimeOut = function (){
+                $('#wheelcanvas').rotate({
+                    angle:0,
+                    animateTo:2160,
+                    duration:8000,
+                    callback:function (){
+                        alert('网络超时，请检查您的网络设置！');
+                    }
+                });
+            };
+
+            //旋转转盘 item:奖品位置; txt：提示语;
+            var rotateFn = function (item, txt){
+                var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
+                if(angles<270){
+                    angles = 270 - angles;
+                }else{
+                    angles = 360 - angles + 270;
+                }
+                $('#wheelcanvas').stopRotate();
+                $('#wheelcanvas').rotate({
+                    angle:0,
+                    animateTo:angles+1800,
+                    duration:8000,
+                    callback:function (){
+                        alert(txt);
+                        turnplate.bRotate = !turnplate.bRotate;
+                    }
+                });
+            };
+
+            $('.pointer').click(function (){
+                if(turnplate.bRotate)return;
+                turnplate.bRotate = !turnplate.bRotate;
+                //获取随机数(奖品个数范围内)
+                var item = rnd(1,turnplate.restaraunts.length);
+                //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
+                rotateFn(item, turnplate.restaraunts[item-1]);
+//		 switch (item) {
+//			case 1:
+//				rotateFn(252, turnplate.restaraunts[0]);
+//				break;
+//			case 2:
+//				rotateFn(216, turnplate.restaraunts[1]);
+//				break;
+//			case 3:
+//				rotateFn(180, turnplate.restaraunts[2]);
+//				break;
+//			case 4:
+//				rotateFn(144, turnplate.restaraunts[3]);
+//				break;
+//			case 5:
+//				rotateFn(108, turnplate.restaraunts[4]);
+//				break;
+//			case 6:
+//				rotateFn(72, turnplate.restaraunts[5]);
+//				break;
+//			case 7:
+//				rotateFn(36, turnplate.restaraunts[6]);
+//				break;
+//			case 8:
+//				rotateFn(360, turnplate.restaraunts[7]);
+//				break;
+//			case 9:
+//				rotateFn(324, turnplate.restaraunts[8]);
+//				break;
+//			case 10:
+//				rotateFn(288, turnplate.restaraunts[9]);
+//				break;
+//		}
+                console.log(item);
+            });
+        });
+
+        function rnd(n, m){
+            var random = Math.floor(Math.random()*(m-n+1)+n);
+            return random;
+
+        }
+
+
+        //页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
+        window.onload=function(){
+            drawRouletteWheel();
+        };
+
+        function drawRouletteWheel() {
+            var canvas = document.getElementById("wheelcanvas");
+            if (canvas.getContext) {
+                //根据奖品个数计算圆周角度
+                var arc = Math.PI / (turnplate.restaraunts.length/2);
+                var ctx = canvas.getContext("2d");
+                //在给定矩形内清空一个矩形
+                ctx.clearRect(0,0,422,422);
+                //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式
+                ctx.strokeStyle = "#FFBE04";
+                //font 属性设置或返回画布上文本内容的当前字体属性
+                ctx.font = '16px Microsoft YaHei';
+                for(var i = 0; i < turnplate.restaraunts.length; i++) {
+                    var angle = turnplate.startAngle + i * arc;
+                    ctx.fillStyle = turnplate.colors[i];
+                    ctx.beginPath();
+                    //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）
+                    ctx.arc(211, 211, turnplate.outsideRadius, angle, angle + arc, false);
+                    ctx.arc(211, 211, turnplate.insideRadius, angle + arc, angle, true);
+                    ctx.stroke();
+                    ctx.fill();
+                    //锁画布(为了保存之前的画布状态)
+                    ctx.save();
+
+                    //----绘制奖品开始----
+                    ctx.fillStyle = "#E5302F";
+                    var text = turnplate.restaraunts[i];
+                    var line_height = 17;
+                    //translate方法重新映射画布上的 (0,0) 位置
+                    ctx.translate(211 + Math.cos(angle + arc / 2) * turnplate.textRadius, 211 + Math.sin(angle + arc / 2) * turnplate.textRadius);
+
+                    //rotate方法旋转当前的绘图
+                    ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+                    /** 下面代码根据奖品类型、奖品名称长度渲染不同效果，如字体、颜色、图片效果。(具体根据实际情况改变) **/
+                    if(text.indexOf("M")>0){//流量包
+                        var texts = text.split("M");
+                        for(var j = 0; j<texts.length; j++){
+                            ctx.font = j == 0?'bold 20px Microsoft YaHei':'16px Microsoft YaHei';
+                            if(j == 0){
+                                ctx.fillText(texts[j]+"M", -ctx.measureText(texts[j]+"M").width / 2, j * line_height);
+                            }else{
+                                ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+                            }
+                        }
+                    }else if(text.indexOf("M") == -1 && text.length>6){//奖品名称长度超过一定范围
+                        text = text.substring(0,6)+"||"+text.substring(6);
+                        var texts = text.split("||");
+                        for(var j = 0; j<texts.length; j++){
+                            ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+                        }
+                    }else{
+                        //在画布上绘制填色的文本。文本的默认颜色是黑色
+                        //measureText()方法返回包含一个对象，该对象包含以像素计的指定字体宽度
+                        ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+                    }
+
+                    //添加对应图标
+                    if(text.indexOf("闪币")>0){
+                        var img= document.getElementById("shan-img");
+                        img.onload=function(){
+                            ctx.drawImage(img,-15,10);
+                        };
+                        ctx.drawImage(img,-15,10);
+                    }else if(text.indexOf("谢谢参与")>=0){
+                        var img= document.getElementById("sorry-img");
+                        img.onload=function(){
+                            ctx.drawImage(img,-15,10);
+                        };
+                        ctx.drawImage(img,-15,10);
+                    }
+                    //把当前画布返回（调整）到上一个save()状态之前
+                    ctx.restore();
+                    //----绘制奖品结束----
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="lucky_bar" style="background-color: #fff9b1;">
+            <img class="pic_button" src="./images/myprize_button2.png" alt="" style="width: 12%;" >
+            <div class="lucky_round">
+                <div class="lottery_zone">
+                    <img src="images/1.png" id="shan-img" style="display:none;" />
+                    <img src="images/2.png" id="sorry-img" style="display:none;" />
+                    <div class="banner">
+                        <div class="turnplate" style="background-image:url(images/turnplate-bg.png);background-size:100% 100%;">
+                            <canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+                            <img class="pointer" src="images/turnplate-pointer.png"/>
+                        </div>
+                    </div>
+
+                    <div class="lottery_tips" style="background-color: #fdc506;line-height: 0.22rem;width: 40%;color: #994f1e;font-size: 0.12rem;position: relative">
+                        <div class="deco_circle" style="top: 5%;left: 1%"></div>
+                        <div class="deco_circle" style="top: 5%;right: 1%"></div>
+                        <div class="deco_circle" style="bottom: 5%;left: 1%"></div>
+                        <div class="deco_circle" style="bottom: 5%;right: 1%"></div>
+                        您还有<span class="lottery_num" style="color: red">93</span>次机会哦
+                    </div>
+                </div>
+            </div>
+            <img class="pic_size" src="./images/lottery_round_banner.png" alt="">
+        </div>
+
+        <div class="info_zone">
+            <div class="winners_list">
+
+                <div class="zjmd">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">中奖名单</div>
+                    </div>
+
+                    <div style="margin-top: 0.1rem">
+                        <ul>
+                            <li>
+                                <div class="info_line" style="padding-top: 0.1rem;">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="info_line" style="padding-bottom: 0.1rem;">
+                                    <div class="winners_name floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                    <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+                    <div class="info_line">
+                        <div class="lottery_tips bkc">查看全部中奖名单</div>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+                <div class="zjmd_nobody">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">中奖名单</div>
+                    </div>
+                    <div class="info_line" style="padding-top: 0.1rem;margin-top: 0.1rem;">
+                        <div class="winners_name" style="width: 90%;font-size: 0.13rem;"><p class="line_size">暂时还没有小伙伴中奖，快试试手气吧哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p></div>
+
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+                <div class="hdsm">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">活动说明</div>
+                    </div>
+                    <div class="info_line">
+                        <h2>活动时间</h2>
+                        <p style="margin: 0.1rem;font-size: 0.08rem;">2017-05-05 00:00:00 ~ 2017-05-15 00:00:00</p>
+                        <h2 style="padding-top: 0">活动说明</h2>
+                        <p style="margin: 0.1rem;margin: 0.1rem;padding-bottom: 0.1rem;margin-bottom: 0;">这个活动很好很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错</p>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--次数用完-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt">
+            <div class="alert_prompt_box alert_prompt_mid">
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="alert_message">
+                    <p class="alert_words"><span>抽奖次数已经用完啦！</span></p>
+                    <p class="alert_words"><span>下次活动再来吧~</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--次数用完-今天-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box">
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="alert_message">
+                    <p class="alert_words"><span>今天的抽奖次数已经用完啦！</span></p>
+                    <p class="alert_words"><span>下次活动再来吧~</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--实物兑奖-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box" style="height: 1.6rem;text-align: center;">
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="alert_message" style="padding-top: 0.2rem;padding-left: 0.2rem;">
+                    <p class="alert_words" style="float: left"><span>请输入兑奖码</span></p>
+                </div>
+                <input class="prize_num wrong_num">
+                <div class="wrong_num_warning">密码输入错误，请重新填写</div>
+                <div class="btn_zone">
+                    <button class="alert_btn" style="margin-right: 0.2rem">确定</button>
+                    <button class="alert_btn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--兑奖成功-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box">
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="alert_message">
+                    <p class="alert_words"><span>恭喜您！兑奖成功</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--虚拟兑奖成功-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box">
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="alert_message" style="padding-top: 0.3rem">
+                    <p class="alert_words"><span>恭喜您！兑奖成功</span></p>
+                    <p class="alert_words">SN码：<span>123456789</span></p>
+                </div>
+                <div class="btn_zone" style="text-align: center;margin-top: 0.1rem">
+                    <button class="alert_btn" style="width: 1.2rem">复制</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--帐号关注-验证-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box">
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="alert_message" style="padding-top: 0.3rem">
+                    <p class="alert_words"><span>要关注公众号才可以</span></p>
+                    <p class="alert_words"><span>参加抽奖哦！</span></p>
+                </div>
+                <div class="btn_zone" style="text-align: center;margin-top: 0.1rem">
+                    <button class="alert_btn" style="width: 1.2rem">去关注</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--账号验证-注册-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box">
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="alert_message" style="padding-top: 0.3rem">
+                    <p class="alert_words"><span>要先注册才可以</span></p>
+                    <p class="alert_words"><span>参加抽奖哦！</span></p>
+                </div>
+                <div class="btn_zone" style="text-align: center;margin-top: 0.1rem">
+                    <button class="alert_btn" style="width: 1.2rem">去关注</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--账号验证-错误提示-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid" style="margin-top: -1.5rem">
+            <div class="alert_prompt_box" style="height: 3rem;text-align: center" >
+                <img class="alert_close" src="./images/alert_close.png" alt="">
+                <div class="message_bar">
+                    <p style="margin: 0"><img class="message_img"  src="./images/touxiang.png" alt=""></p>
+                    <p class="message_name">lalallalaalalallalaallaalalal</p>
+                </div>
+                <input class="prize_num " style="margin-top: 0.1rem;font-size: 0.15rem;" placeholder="请输入真实姓名">
+                <input class="prize_num " style="margin-top: 0.15rem;font-size: 0.15rem;" placeholder="请输入手机号码">
+                <div>
+                    <input class="prize_num  prize_num_yzm" style="margin-top: 0;font-size: 0.15rem;margin-top: 0.15rem" placeholder="请输入验证码">
+                    <div class="prize_num_tips">获取验证码</div>
+                    <div class="wrong_num_warning" style="line-height: 0.15rem;position: relative;float: left;margin-top: 0.1rem">密码输入错误，请重新填写</div>
+                </div>
+
+                <div class="btn_zone" style="text-align: center;margin-top: 0.1rem">
+                    <button class="alert_btn" style="width: 1.2rem;margin-top: 0.2rem">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--转盘(中奖了)-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box" style="height: 2.2rem">
+                <img class="alert_close" src="./images/alert_close.png" alt="" style="top: -0.5rem;z-index: 1;">
+                <img class="alert_prize_bar" src="./images/alert_prize_bar.png" alt="">
+                <div>
+                    <p class="prize_img_bd">
+                        <img class="prize_img" src="./images/alert_prize_img.png" alt="">
+                    </p>
+                </div>
+                <div class="alert_message" style="padding-top: 0.01rem;">
+                    <p class="alert_words">恭喜您抽中<span>iPhone7</span></p>
+                </div>
+                <div class="btn_zone" style="text-align: center;margin-top: 0.1rem">
+                    <button class="alert_btn" style="width: 1.2rem">查看奖品</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--中奖名单-->
+    <div class="screen_mask" style="display: none">
+        <div class="alert_prompt alert_prompt_mid">
+            <div class="alert_prompt_box" style="height: 2.2rem">
+                <img class="alert_close" src="./images/alert_close.png" alt="" style="top: -0.4rem;z-index: 1;">
+                <img class="alert_prize_bar" src="./images/luckymen_numb.png" alt="" style="top: -0.3rem;">
+                <div>
+                    <ul>
+                        <li>
+                            <div class="info_line_al" style="padding-top: 0.1rem;">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info_line_al">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info_line_al">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info_line_al">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info_line_al">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info_line_al">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info_line_al">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="info_line_al" style="padding-bottom: 0.1rem;">
+                                <div class="winners_name_al floatleft"><p class="line_size">恭喜<span class="name">XXXXXXXXXX</span></p></div>
+                                <div class="winners_prize floatleft"><p class="line_size">获得<span class="prize">XXXXXXXXXXX</span></p></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script>-->
+        <!--$(function () {-->
+            <!--$(".screen_mask").click(function () {-->
+                <!--$(this).hide();-->
+            <!--})-->
+        <!--})-->
+    <!--</script>-->
+</body>
+</html>

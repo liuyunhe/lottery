@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./js/rem.js"></script>
+    <style>
+        p {
+            margin: 0;
+        }
+        p.vote_img {
+            width: 100%;
+            height: 2rem;
+            margin: 0;
+            background-image: url("./images/vote_banner.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .vote_banner {
+            position: relative;
+        }
+        .vote_statistics {
+            width: 100%;
+            height: 0.4rem;
+            position: absolute;
+            bottom: 0;
+            background-color: #e1e5e8;
+            opacity: 0.8;
+        }
+        .vote_data {
+            width: 33%;
+            float: left;
+            height: 0.3rem;
+            margin: 0.05rem 0;
+        }
+        .vote_data > p {
+            margin: 0;
+            text-align: center;
+            font-size: 0.1rem;
+            line-height: 0.15rem;
+        }
+         div.vote_data:nth-child(2)> p {
+             border-left: 2px solid #fff;
+             border-right: 2px solid #fff;
+         }
+        .wybj {
+            padding: 10% 5%;
+        }
+        .hdsj {
+            text-align: center;
+            font-size: 0.1rem;
+            margin-top: 0.2rem;
+            margin-bottom: 0;
+        }
+        .search_bar {
+            padding: 5%;
+            padding-top: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        .vote_input {
+            width: 1.6rem;
+            float: left;
+            margin-left: 0.25rem;
+        }
+        .vote_search {
+            line-height: 0.25rem;
+            width: 0.6rem;
+            float: left;
+            margin-left: 0.2rem;
+            margin-top: 0.05rem;
+        }
+        .vote_box {
+            padding: 3%;
+            overflow: hidden;
+        }
+        .vote_box > p.voteforimg {
+            width: 1rem;
+            height: 0.6rem;
+            background-image: url("./images/votefor_img.png") ;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            margin: 0;
+            float: left;
+            border: 2px solid #fed856;
+        }
+        .voteforname {
+            margin-left: 1.1rem;
+            font-size: 0.12rem;
+            line-height: 0.15rem;
+            overflow: hidden;
+        }
+        .votefornumb {
+            font-size: 0.1rem;
+        }
+        .float_left {
+            float: left;
+        }
+        .floatright {
+            float: right;
+        }
+        .red {
+            color: #e8373d;
+        }
+        .border {
+            border: 2px solid #e8373d;
+            border-radius: 0.04rem;
+            padding: 0 0.05rem;
+        }
+        .votebtn {
+            line-height: 0.2rem;
+            padding-top: 0.1rem;
+        }
+        .vote_btn {
+            padding: 0 0.2rem;
+            background: linear-gradient(#f5767a, #f2545a);
+            color: #fff;
+            border: 0;
+            border-bottom: 2px solid #861317;
+        }
+        .coupon_bottom {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            background-color: #f54242;
+        }
+        .coupon_bottom > p {
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 0.14rem;
+            margin: 0.12rem;
+            z-index: 9;
+        }
+        .wks {
+            font-size: 0.14rem;
+        }
+        .info_zone {
+            background: linear-gradient(#fff9b1 80%, #fdd575 );
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="vote_banner">
+            <p class="vote_img"></p>
+            <div class="vote_statistics">
+                <div class="vote_data">
+                    <p>999999</p>
+                    <p>参赛选手</p>
+                </div>
+                <div class="vote_data">
+                    <p>999999</p>
+                    <p>累积投票</p>
+                </div>
+                <div class="vote_data">
+                    <p>999999</p>
+                    <p>访问量</p>
+                </div>
+            </div>
+        </div>
+        <div class="info_zone">
+            <div class="wybj">
+                <div class="bkc lottery_tips">我要报名</div>
+                <div><p class="hdsj">距离活动还有结束还有<span>XX</span>天<span>XX</span>时<span>XX</span>分<span>xx</span>秒</p></div>
+            </div>
+            <!--活动未开始-->
+            <div class="wybj" style="display: none">
+                <div style="font-size: 0.14rem;color: red"><p class="hdsj wks">活动未开始</p></div>
+                <div><p class="hdsj">--天--时--分--秒</p></div>
+            </div>
+            <div class="winners_list">
+
+                <div class="hdsm">
+                    <div class="info_title" style="padding-top: 0.1rem;">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">活动说明</div>
+                    </div>
+                    <div class="info_line">
+                        <h2>活动时间</h2>
+                        <p style="margin: 0.1rem;font-size: 0.08rem;">2017-05-05 00:00:00 ~ 2017-05-15 00:00:00</p>
+                        <h2 style="padding-top: 0">活动说明</h2>
+                        <p style="margin: 0.1rem;padding-bottom: 0.1rem;margin-bottom: 0;">这个活动很好很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错很好很好很好很不错</p>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+
+                <div class="hdsm">
+                    <div class="info_title">
+                        <hr width=90% size=3 color=#f2545a align=center noshade style="margin: 0 auto;">
+                        <div class="title_capture">投票排名</div>
+                    </div>
+                    <div class="search_bar">
+                        <input class="prize_num vote_input" type="text" placeholder="请输入昵称" >
+                        <div class="bkc lottery_tips vote_search">搜索</div>
+                    </div>
+                    <div class="info_line">
+                        <ul>
+                            <li>
+                                <div class="vote_box">
+                                    <p class="voteforimg"></p>
+                                    <div class="voteforname"><p class="float_left">灰姑娘</p></div>
+                                    <div class="voteforname">
+                                        <p class="votefornumb float_left">NO:<span>00001</span></p>
+                                        <p class="floatright red"><span>9999999</span>票</p>
+                                    </div>
+                                    <div class="voteforname votebtn">
+                                        <div><p class="float_left red border">为TA加油</p></div>
+                                        <div><p class="floatright border vote_btn">投票</p></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="vote_box">
+                                    <p class="voteforimg"></p>
+                                    <div class="voteforname"><p class="float_left">灰姑娘</p></div>
+                                    <div class="voteforname">
+                                        <p class="votefornumb float_left">NO:<span>00001</span></p>
+                                        <p class="floatright red"><span>9999999</span>票</p>
+                                    </div>
+                                    <div class="voteforname votebtn">
+                                        <div><p class="float_left red border">为TA加油</p></div>
+                                        <div><p class="floatright border vote_btn">投票</p></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="vote_box">
+                                    <p class="voteforimg"></p>
+                                    <div class="voteforname"><p class="float_left">灰姑娘</p></div>
+                                    <div class="voteforname">
+                                        <p class="votefornumb float_left">NO:<span>00001</span></p>
+                                        <p class="floatright red"><span>9999999</span>票</p>
+                                    </div>
+                                    <div class="voteforname votebtn">
+                                        <div><p class="float_left red border">为TA加油</p></div>
+                                        <div><p class="floatright border vote_btn">投票</p></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="vote_box">
+                                    <p class="voteforimg"></p>
+                                    <div class="voteforname"><p class="float_left">灰姑娘</p></div>
+                                    <div class="voteforname">
+                                        <p class="votefornumb float_left">NO:<span>00001</span></p>
+                                        <p class="floatright red"><span>9999999</span>票</p>
+                                    </div>
+                                    <div class="voteforname votebtn">
+                                        <div><p class="float_left red border">为TA加油</p></div>
+                                        <div><p class="floatright border vote_btn">投票</p></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--活动为开始-->
+                    <div class="info_line" style="display: none">
+                        <p style="margin: 0.1rem;text-align: center;padding: 5% 0;">暂时还没有小伙伴中奖，快试试手气吧！</p>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+            </div>
+        </div>
+        <div class="coupon_bottom">
+            <p>查看排名</p>
+        </div>
+    </div>
+</body>
+</html>

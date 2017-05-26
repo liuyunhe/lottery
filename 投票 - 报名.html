@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票-报名</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./js/rem.js"></script>
+    <style>
+        p {
+            margin: 0;
+        }
+        p.vote_img {
+            width: 100%;
+            height: 2rem;
+            margin: 0;
+            background-image: url("./images/vote_banner.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .vote_banner {
+            position: relative;
+        }
+        .vote_statistics {
+            width: 100%;
+            height: 0.4rem;
+            position: absolute;
+            bottom: 0;
+            background-color: #e1e5e8;
+            opacity: 0.8;
+        }
+        .vote_data {
+            width: 33%;
+            float: left;
+            height: 0.3rem;
+            margin: 0.05rem 0;
+        }
+        .vote_data > p {
+            margin: 0;
+            text-align: center;
+            font-size: 0.1rem;
+            line-height: 0.15rem;
+        }
+         div.vote_data:nth-child(2)> p {
+             border-left: 2px solid #fff;
+             border-right: 2px solid #fff;
+         }
+        .wybj {
+            padding: 5% 5%;
+        }
+        .hdsj {
+            text-align: center;
+            font-size: 0.1rem;
+            margin-top: 0.2rem;
+            margin-bottom: 0;
+        }
+        .search_bar {
+            padding: 5%;
+            padding-top: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        .vote_input {
+            width: 1.6rem;
+            float: left;
+            margin-left: 0.25rem;
+        }
+        .vote_search {
+            line-height: 0.25rem;
+            width: 0.6rem;
+            float: left;
+            margin-left: 0.2rem;
+            margin-top: 0.05rem;
+        }
+        .vote_box {
+            padding: 3%;
+            overflow: hidden;
+        }
+        .vote_box > p.voteforimg {
+            width: 1rem;
+            height: 0.6rem;
+            background-image: url("./images/votefor_img.png") ;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            margin: 0;
+            float: left;
+            border: 2px solid #fed856;
+        }
+        .voteforname {
+            margin-left: 1.1rem;
+            font-size: 0.12rem;
+            line-height: 0.15rem;
+            overflow: hidden;
+        }
+        .votefornumb {
+            font-size: 0.1rem;
+        }
+        .float_left {
+            float: left;
+        }
+        .floatright {
+            float: right;
+        }
+        .red {
+            color: #e8373d;
+        }
+        .border {
+            border: 2px solid #e8373d;
+            border-radius: 0.04rem;
+            padding: 0 0.05rem;
+        }
+        .votebtn {
+            line-height: 0.2rem;
+            padding-top: 0.1rem;
+        }
+        .vote_btn {
+            padding: 0 0.2rem;
+            background: linear-gradient(#f5767a, #f2545a);
+            color: #fff;
+            border: 0;
+            border-bottom: 2px solid #861317;
+        }
+        .coupon_bottom {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            background-color: #f54242;
+        }
+        .coupon_bottom > p {
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 0.14rem;
+            margin: 0.12rem;
+            z-index: 9;
+        }
+        .wks {
+            font-size: 0.14rem;
+        }
+        .bmzt {
+            margin: 0.1rem;
+            margin-bottom: 0;
+            float: left;
+        }
+        .of {
+            overflow: hidden;
+        }
+        .upload_img {
+            width: 1rem;
+            height: 0.6rem;
+            background-image: url(./images/votefor_img.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            margin: 0;
+            float: left;
+            border: 2px solid #fed856;
+            margin: 0 0.1rem;
+        }
+        .jbxx {
+            font-size: 0.11rem;
+            margin-left: 0.2rem;
+        }
+        .jbxxinput {
+            border: 0;
+            font-size: 0.11rem;
+            margin-right: 0.2rem;
+            padding-bottom: 0.1rem;
+            border-bottom: 1px solid #cccccc;
+            width: 1.6rem;
+            background-color: #f4f0f1;
+            float: right;
+            line-height: 0.15rem;
+        }
+        .maleselect {
+            margin-top: 0.1rem;
+            font-size: 0.11rem;
+            width: 1.7rem;
+            float: right;
+            margin-right: 0.2rem;
+        }
+        input.malesel {
+            width: 0.11rem;
+            height: 0.11rem;
+        }
+        .shbtg {
+            width: 100%;
+            height: 0.3rem;
+            position: absolute;
+            top: 0;
+            background-color: #f58588;
+            opacity: 0.3;
+        }
+        .shbtg_warn {
+            line-height: 0.3rem;
+            margin: 0 5%;
+            float: left;
+            color: #fb040c;
+            font-size: 0.1rem;
+
+        }
+        .info_zone {
+            background: linear-gradient(#fff9b1 80%, #fdd575 );
+        }
+        .alert_message {
+            text-align: center;
+            padding-top: 0.4rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="vote_banner">
+            <p class="shbtg_warn">审核不通过，照片存在造假可能</p>
+            <div class="shbtg"></div>
+            <p class="vote_img"></p>
+            <div class="vote_statistics">
+                <div class="vote_data">
+                    <p>999999</p>
+                    <p>参赛选手</p>
+                </div>
+                <div class="vote_data">
+                    <p>999999</p>
+                    <p>累积投票</p>
+                </div>
+                <div class="vote_data">
+                    <p>999999</p>
+                    <p>访问量</p>
+                </div>
+            </div>
+        </div>
+        <div class="info_zone" style="padding-top: 5%">
+            <div class="winners_list" style="padding-bottom: 0;">
+                <div class="info_line">
+                    <div class="of"><p class="bmzt">当前报名状态：<span style="color: red">审核通过</span></p></div>
+                    <div class="of"><p class="bmzt">当前报名状态：<span style="color: red">审核不通过</span></p></div>
+                    <div class="of"><p class="bmzt">当前报名状态：<span style="color: red">冻结</span>(存在虚假数据)</p></div>
+                    <div class="of"><p class="bmzt">报名开始时间：<span>2017-05-01 16:00:00</span></p></div>
+                    <div class="of"><p class="bmzt" style="padding-bottom: 0.1rem;">报名结束时间：<span>2017-05-31 16:00:00</span></p></div>
+                </div>
+                <div class="info_line border_line"></div>
+            </div>
+            <div class="wybj">
+                <div class="bkc lottery_tips">查看竞争对手</div>
+            </div>
+
+            <div class="winners_list" style="padding-bottom: 0">
+
+                <div class="hdsm">
+
+                    <div class="info_line">
+                        <div class="of"><p class="bmzt">上传图片:(最多上传<span>X</span>张)</p></div>
+                        <div class="of bmzt" style="float: none">
+                            <div class="float_left"><p class="upload_img"></p></div>
+                            <div class="floatright"><p class="upload_img"></p></div>
+                        </div>
+                        <div class="of"><p class="bmzt">基本信息</p></div>
+                        <div class="of">
+                            <p class="bmzt jbxx"><span class="red">＊</span>投票标题</p>
+                            <input class="bmzt jbxxinput" type="text" placeholder="请输入投票标题">
+                        </div>
+                        <div class="of">
+                            <p class="bmzt jbxx"><span class="red">＊</span>图片介绍</p>
+                            <input class="bmzt jbxxinput" type="text" placeholder="请输入图片介绍，不超过50字">
+                        </div>
+                        <div class="of" style="padding-bottom: 0.1rem">
+                            <p class="bmzt jbxx"><span class="red">＊</span>性别</p>
+                            <div class="maleselect">
+                                <input class="malesel" type="radio" name="sex" value="male" checked>男
+                                <input class="malesel" type="radio" name="sex" value="male" checked>女
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info_line border_line"></div>
+                </div>
+            </div>
+            <div class="wybj"  style="padding-bottom: 0.6rem">
+                <div><p class="hdsj"><span style="color: red">温馨提示：资料审核过程中将不能再修改噢~</span></div>
+            </div>
+        </div>
+        <div class="coupon_bottom">
+            <p>查看排名</p>
+        </div>
+        <!--报名-提交成功-->
+        <div class="screen_mask" style="display: none">
+            <div class="alert_prompt">
+                <div class="alert_prompt_box alert_prompt_mid">
+                    <img class="alert_close" src="./images/alert_close.png" alt="">
+                    <div class="alert_message">
+                        <p class="alert_words"><span>提交成功</span></p>
+                        <p class="alert_words"><span>请耐心等待审核结果~</span></p>
+                        <p class="alert_words" style="font-size: 0.1rem;color: #e9373d;padding-top: 0.1rem;"><span>可在报名页面查看审核结果</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

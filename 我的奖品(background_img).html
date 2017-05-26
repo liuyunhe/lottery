@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的奖品(background_img)</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./js/rem.js"></script>
+    <style>
+        .coupon_size {
+            background-image: url("./images/myprize_usable.png");
+            background-size: 100%;
+            height: 1.049rem;
+        }
+        .mypz_info {
+            width: 0.4rem;
+            border-radius: 1rem;
+            margin: 0.1rem 0.05rem 0.05rem 0.2rem;
+        }
+        .prize_info_bar > p {
+            font-size: 0.14rem;
+            line-height: 0.2rem;
+            color: #FFFFFF;
+        }
+        .prize_info_bar > p:nth-child(2) {
+            font-size: 0.12rem;
+        }
+        .mypz_tips {
+            width: 50%;
+            margin-left: 0.2rem;
+            font-size: 0.1rem;
+            top: 50%;
+            color: #ffffff;
+        }
+        div.prizebar.mypz.mypz_tips > p {
+            margin: 0;
+        }
+        .coupon_disable {
+            background-image: url("./images/myprize_disable.png");
+        }
+        .couponinfo_usable {
+            background-image: url("./images/myprizeinfo_usable.png");
+        }
+        .couponinfo_disable {
+            background-image: url("./images/myprizeinfo_disable.png");
+        }
+        .mypzms {
+            width: 85%;
+        }
+        .click_zone {
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            right: 0;
+        }
+        .coupon_bottom {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            background-color: #f54242;
+        }
+        .coupon_bottom > p {
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 0.14rem;
+            margin: 0.12rem;
+            z-index: 9;
+        }
+        .nocoupon {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: #ebebeb;
+        }
+        .nocoupon_size {
+            margin-top: 1.2rem;
+        }
+        .nocoupon_img {
+            width: 25%;
+            margin-left: 1.27rem;
+        }
+        .coupontips > p {
+            text-align: center;
+            font-size: 0.12rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="coupon" style="background-color: #ebebeb;padding: 2% 5% 15% 5%;">
+        <div class="coupon_zone" style="margin-top: 0">
+            <ul>
+                <li>
+                    <div class="coupon_size">
+                        <div class="click_zone"></div>
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon_size">
+                        <div class="click_zone"></div>
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon_size coupon_disable">
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon_size coupon_disable">
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon_size couponinfo_usable">
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips mypzms">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon_size couponinfo_usable">
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips mypzms">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon_size couponinfo_disable">
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips mypzms">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="coupon_size couponinfo_disable">
+                        <div class="prizebar mypz">
+                            <img class="prize_imginfo mypz_info" src="./images/alert_prize_img.png" alt="">
+                            <div class="prize_info_bar">
+                                <p>奖品名称</p>
+                                <p>SN码: <span>123456789</span></p>
+                            </div>
+                        </div>
+                        <div class="prizebar mypz mypz_tips mypzms">
+                            <p>奖品说明：奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明奖品说明</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--暂无中奖信息-->
+    <div class="nocoupon"  style="display: none">
+            <div class="nocoupon_size">
+                <img class="nocoupon_img" src="./images/no_coupon.png" alt="">
+                <div class="coupontips">
+                    <p>暂无中奖信息</p>
+                </div>
+            </div>
+    </div>
+
+
+    <div class="coupon_bottom">
+        <p>返回首页</p>
+    </div>
+    <script>
+        $(function () {
+            $(".click_zone").click(function () {
+                alert("已领取");
+            })
+            $(".coupon_bottom").click(function () {
+                alert("首页");
+            })
+        })
+    </script>
+</body>
+</html>
