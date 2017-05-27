@@ -51,25 +51,32 @@ body {
     background-color: #f4f0f1;
     font-size: 0.12rem;
     overflow: hidden;
+    /*padding-top: 0.1rem;*/
 }
 .floatleft{
     float: left;
     width: 45%;
+    font-size:0.12rem ;
 }
 .winners_name {
     margin-left: 5%;
 }
-.winners_prize {
+.winners_prz {
+    font-size: 0.1rem;
 }
 .name {
     margin-left: 5%;
+    float: left;
 }
 .line_size {
     margin: auto;
     line-height: 0.25rem;
+    float: left;
+    width: 100%;
 }
 .prize {
     margin-left: 5%;
+    float: left;
 }
 .bkc {
     background: linear-gradient(#f5767a, #f2545a);
@@ -91,11 +98,20 @@ body {
     border-right: 0.02rem solid #f2545a;
     left: 40%;
     background-color: #fff9b1;
+    color: #f2545a;
+    font-weight: bold;
 }
 h2 {
     font-size: 0.15rem;
     margin: 0.1rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.title_hd {
+    font-size: 0.15rem;
+    margin: 0.1rem;
     padding-top: 0.1rem;
+    font-weight: bold;
 }
 .border_line {
     width: 0;
@@ -310,18 +326,20 @@ ul {
 }
 li {
     list-style-type:none;
+    overflow: hidden;
 }
 .info_line_al {
     width: 98%;
     margin: 0 auto;
     background-color: transparent;
-    font-size: 0.1rem;
+    font-size: 0.08rem;
     color: #a53600;
+    overflow: hidden;
 }
 .winners_name_al {
     display: inline-block;
     width: 44%;
-    margin-left: 3%;
+    margin-left: 5%;
 }
 .prize_imginfo {
     width: 0.5rem;
@@ -347,7 +365,7 @@ li {
 .prize_msg {
     margin:0 0.1rem;
     padding-bottom: 0.1rem;
-    font-size: 0.08rem;
+    font-size: 0.12rem;
     border-bottom: 1px solid #cccccc;
 }
 .ggl_box {
