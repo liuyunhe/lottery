@@ -6,7 +6,7 @@
 
 **刮刮乐**: [https://liuyunhe.github.io/lottery/刮刮乐.html](https://liuyunhe.github.io/lottery/刮刮乐.html)
 
-**抽奖(圆)**: [https://liuyunhe.github.io/lottery/抽奖(圆).html](https://liuyunhe.github.io/lottery/抽奖(圆).html)
+**抽奖(圆)**: [https://liuyunhe.github.io/lottery/抽奖(圆)%20.html](https://liuyunhe.github.io/lottery/抽奖(圆)%20.html)
 
 **抽奖(方)**: [https://liuyunhe.github.io/lottery/抽奖(方).html](https://liuyunhe.github.io/lottery/抽奖(方).html)
 
