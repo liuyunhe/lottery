@@ -51,7 +51,7 @@ body {
     background-color: #f4f0f1;
     font-size: 0.12rem;
     overflow: hidden;
-    /*padding-top: 0.1rem;*/
+    padding: 0.1rem  0;
 }
 .floatleft{
     float: left;
@@ -61,7 +61,7 @@ body {
 .winners_name {
     margin-left: 5%;
 }
-.winners_prz {
+.winners_prz  {
     font-size: 0.1rem;
 }
 .name {
