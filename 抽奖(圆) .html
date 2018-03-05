@@ -63,11 +63,12 @@
                 });
             };
 
+            //点击按钮
             $('.pointer').click(function (){
-                if(turnplate.bRotate)return;
-                turnplate.bRotate = !turnplate.bRotate;
+                if(turnplate.bRotate)return;                        //判断当前转盘的转动状态
+                turnplate.bRotate = !turnplate.bRotate;             //点击按钮时turnplate.bRotate = true
                 //获取随机数(奖品个数范围内)
-                var item = rnd(1,turnplate.restaraunts.length);
+                var item = weightRandom(randomConfig);
                 //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
                 rotateFn(item, turnplate.restaraunts[item-1]);
 //		 switch (item) {
@@ -106,18 +107,32 @@
             });
         });
 
-        function rnd(n, m){
-            var random = Math.floor(Math.random()*(m-n+1)+n);
-            return random;
+        //随机获取奖品
+//        function rnd(n, m){
+//            var random = Math.floor(Math.random()*(m-n+1)+n);
+//            return random;
+//
+//        }
 
-        }
-
+        //设置权重获取奖品
+        var randomConfig = [{prize_index:1,weight:5,num:1},{prize_index:2,weight:5,num:1}];   //prize_index:奖品在转盘的位置，weight：奖品权重，num：判断是否加入权重
+        function weightRandom(randomConfig) {
+            var randomList = [];
+            for (var i in randomConfig) {
+                for (var j = 0; j < randomConfig[i].weight && randomConfig[i].num != 0; j++) {
+                    randomList.push(randomConfig[i].prize_index);
+                }
+            }
+            var randomValue = randomList[Math.floor(Math.random() * randomList.length)];
+            return randomValue;
+        };
 
         //页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
         window.onload=function(){
             drawRouletteWheel();
         };
 
+        //canvas绘制转盘
         function drawRouletteWheel() {
             var canvas = document.getElementById("wheelcanvas");
             if (canvas.getContext) {
@@ -143,13 +158,17 @@
                     ctx.save();
 
                     //----绘制奖品开始----
+
                     ctx.fillStyle = "#E5302F";
                     var text = turnplate.restaraunts[i];
                     var line_height = 17;
+
                     //translate方法重新映射画布上的 (0,0) 位置
+
                     ctx.translate(211 + Math.cos(angle + arc / 2) * turnplate.textRadius, 211 + Math.sin(angle + arc / 2) * turnplate.textRadius);
 
                     //rotate方法旋转当前的绘图
+
                     ctx.rotate(angle + arc / 2 + Math.PI / 2);
 
                     /** 下面代码根据奖品类型、奖品名称长度渲染不同效果，如字体、颜色、图片效果。(具体根据实际情况改变) **/
@@ -163,7 +182,7 @@
                                 ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
                             }
                         }
-                    }else if(text.indexOf("M") == -1 && text.length>6){//奖品名称长度超过一定范围
+                    }else if(text.indexOf("M") == -1 && text.length>6){                  //奖品名称长度超过一定范围
                         text = text.substring(0,6)+"||"+text.substring(6);
                         var texts = text.split("||");
                         for(var j = 0; j<texts.length; j++){
@@ -188,6 +207,12 @@
                             ctx.drawImage(img,-15,10);
                         };
                         ctx.drawImage(img,-15,10);
+                    }else{
+                        var img= document.getElementById("alert-img");
+                        img.onload=function(){
+                            ctx.drawImage(img,-15,10);
+                        };
+                        ctx.drawImage(img,-15,25,27,27);
                     }
                     //把当前画布返回（调整）到上一个save()状态之前
                     ctx.restore();
@@ -206,6 +231,7 @@
                 <div class="lottery_zone">
                     <img src="images/1.png" id="shan-img" style="display:none;" />
                     <img src="images/2.png" id="sorry-img" style="display:none;" />
+                    <img src="images/alert_close.png" id="alert-img" style="display: none;"/>
                     <div class="banner">
                         <div class="turnplate" style="background-image:url(images/turnplate-bg.png);background-size:100% 100%;">
                             <canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
@@ -405,14 +431,20 @@
         </div>
     </div>
     <!--账号验证-错误提示-->
-    <div class="screen_mask" style="display: none">
-        <div class="alert_prompt alert_prompt_mid" style="margin-top: -1.5rem">
-            <div class="alert_prompt_box" style="height: 3rem;text-align: center" >
+    <div class="screen_mask" >
+        <div class="alert_prompt alert_prompt_mid" style="margin-top: -2.6rem">
+            <div class="alert_prompt_box" id="zhyz-cwts" style="height: 5.2rem;text-align: center;border-radius: 30px" >
                 <img class="alert_close" src="./images/alert_close.png" alt="">
                 <div class="message_bar">
                     <p style="margin: 0"><img class="message_img"  src="./images/touxiang.png" alt=""></p>
                     <p class="message_name">lalallalaalalallalaallaalalal</p>
                 </div>
+                <input class="prize_num " style="margin-top: 0.1rem;font-size: 0.15rem;" placeholder="请输入真实姓名">
+                <input class="prize_num " style="margin-top: 0.15rem;font-size: 0.15rem;" placeholder="请输入手机号码">
+                <input class="prize_num " style="margin-top: 0.1rem;font-size: 0.15rem;" placeholder="请输入真实姓名">
+                <input class="prize_num " style="margin-top: 0.15rem;font-size: 0.15rem;" placeholder="请输入手机号码">
+                <input class="prize_num " style="margin-top: 0.1rem;font-size: 0.15rem;" placeholder="请输入真实姓名">
+                <input class="prize_num " style="margin-top: 0.15rem;font-size: 0.15rem;" placeholder="请输入手机号码">
                 <input class="prize_num " style="margin-top: 0.1rem;font-size: 0.15rem;" placeholder="请输入真实姓名">
                 <input class="prize_num " style="margin-top: 0.15rem;font-size: 0.15rem;" placeholder="请输入手机号码">
                 <div>
@@ -509,12 +541,15 @@
             </div>
         </div>
     </div>
-    <!--<script>-->
-        <!--$(function () {-->
-            <!--$(".screen_mask").click(function () {-->
-                <!--$(this).hide();-->
-            <!--})-->
-        <!--})-->
-    <!--</script>-->
+    <script>
+        $(function () {
+            var u = navigator.userAgent;
+            if (u.indexOf("iPad") > -1){
+                $("#zhyz-cwts").css({
+                    "transform" : "scale(0.7)"
+                })
+            }
+        })
+    </script>
 </body>
 </html>

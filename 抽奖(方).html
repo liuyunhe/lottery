@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>好运转转转</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <style>
+        .lottery_pn {
+            position: absolute;
+             bottom: 5%;
+            font-size: 0.08rem;
+             left: 0;
+            width: 100%;
+        }
+    </style>
     <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="./js/rem.js"></script>
 </head>
@@ -130,7 +139,10 @@
     </div>
     <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
+        //抽奖函数
         var lottery={
+            restaraunts:[],   //奖品名称数组
+            prizepic:[],      //奖品图片数组
             index:-1,	//当前转动到哪个位置，起点位置隐藏
             count:0,	//总共有多少个位置
             timer:0,	//setTimeout的ID，用clearTimeout清除，setTimeout次数计数；
@@ -147,6 +159,7 @@
                     $lottery.find(".lottery-unit-"+this.index).addClass("active");
                 };
             },
+            //九宫格转动
             roll:function(){
                 var index = this.index;     //index为当前目录；
                 var count = this.count;     //旋转的目录个数；
@@ -166,32 +179,75 @@
             }
         };
 
+        //添加奖品目录
+        $(function () {
+            lottery.restaraunts = ["50M免费流量包", "1000积分", "谢谢参与", "20闪币", "10M免费流量包", "20M免费流量包", "20积分", "30M免费流量包", "100M免费流量包"];
+            lottery.prizepic = [];
+            drawprizes();
+        })
+
+        //填入奖品信息
+        function drawprizes() {
+            for (var i = 0; i < lottery.restaraunts.length;  i++) {
+                lottery.init('lottery');
+                if (lottery.restaraunts[i].indexOf("M")>0) {
+                   var text =  lottery.restaraunts[i].split("M");
+                    $lottery.find(".lottery-unit-"+ i).find(".lottery_pn").html(text[0] + "M" + "</br>" +text[1]);
+                } else {
+                    $lottery.find(".lottery-unit-" + i).find(".lottery_pn").html(lottery.restaraunts[i]);
+//                $lottery.find(".lottery-unit-"+ i).find(".img_sty").attr("scr","lottery.prizepic[i]");     //奖品图片地址
+
+                }
+            }
+        }
+
+        //设置权重获取奖品
+        var randomConfig = [{prize_index:1,weight:5,num:1},{prize_index:2,weight:5,num:1}];   //prize_index:奖品在转盘的位置，weight：奖品权重，num：判断是否加入权重
+        function weightRandom(randomConfig) {
+            var randomList = [];
+            for (var i in randomConfig) {
+                for (var j = 0; j < randomConfig[i].weight && randomConfig[i].num != 0; j++) {
+                    randomList.push(randomConfig[i].prize_index);
+                }
+            }
+            var randomValue = randomList[Math.floor(Math.random() * randomList.length)];
+            return randomValue ;
+        };
+
+        //控制转盘转动及变速函数
         function roll(){
-            lottery.times += 1;           //times当前转动次数；
-            lottery.roll();               //执行转动函数；
-            if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {    //如果转动次数大于基本转动次数+10
-                clearTimeout(lottery.timer);                                           //且抽奖目录等于当前位置则setTimeout计数清零；
-                lottery.prize=-1;                                                      //函数系统初始化；
+            lottery.times += 1;                                                         //times当前转动次数；
+            lottery.roll();                                                             //执行转动函数；
+            if (lottery.times > lottery.cycle+10 && lottery.prize ==lottery.index) {    //如果转动次数大于基本转动次数+10
+                clearTimeout(lottery.timer);                                            //且抽奖目录等于当前位置则setTimeout计数清零；
+                lottery.prize=-1;                                                       //抽奖函数系统初始化；
                 lottery.times=0;
                 click=false;
-            }else{
+                setTimeout(tips,1000);                                                  //提示奖品信息
+                function tips() {
+                    var prizename = $(".active").find(".lottery_pn").text();
+                    alert(prizename);
+                }
+            }
+            else{
                 if (lottery.times<lottery.cycle) {
                     lottery.speed -= 10;
-                }else if(lottery.times==lottery.cycle) {             //转动次数等于基本转动次数
-                    var index = Math.random()*(lottery.count)|0;     //定义随机抽奖目录
+                }else if(lottery.times==lottery.cycle) {                                //转动次数等于基本转动次数
+                    var index = weightRandom(randomConfig) - 1;                         //定义随机抽奖目录
+                    console.log(index);
                     lottery.prize = index;
                 }else{
                     if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
                         lottery.speed += 110;
                     }else{
-                        lottery.speed += 20;                  //转动次数大于基本转动次数时，转动间隔逐渐变慢
+                        lottery.speed += 20;                                            //转动次数大于基本转动次数时，转动间隔逐渐变慢
                     }
                 }
-                if (lottery.speed<40) {                       //转动次数小于基本转动次数转动间隔不变
+                if (lottery.speed<40) {                                                 //转动次数小于基本转动次数转动间隔不变
                     lottery.speed=40;
                 };
                 //console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
-                lottery.timer = setTimeout(roll,lottery.speed);    //转动次数计数，根据时间间隔执行转动函数
+                lottery.timer = setTimeout(roll,lottery.speed);                         //转动次数计数，根据时间间隔执行转动函数
             }
             return false;
         }
