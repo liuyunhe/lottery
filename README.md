@@ -16,6 +16,6 @@
 
 **我的奖品**: [https://liuyunhe.github.io/lottery/我的奖品(background_img).html](https://liuyunhe.github.io/lottery/我的奖品(background_img).html)
 
-**投票 - 报名**: [https://liuyunhe.github.io/lottery/投票 - 报名.html](https://liuyunhe.github.io/lottery/投票 - 报名.html)
+**投票 - 报名**: [https://liuyunhe.github.io/lottery/投票%20-%20报名.html](https://liuyunhe.github.io/lottery/投票%20-%20报名.html)
 
 **投票**: [https://liuyunhe.github.io/lottery/投票.html](https://liuyunhe.github.io/lottery/投票.html)
